@@ -75,6 +75,49 @@ private:
 This inheritance pattern is called F-bound Polymorphism pattern or Curiously Recurring Template Pattern. In `OnLaunched` method, create a new windows and activate it.
 
 ## Step 5: Initializing and Start an application
-`init_apartment` initializes the thread in the Windows Runtime. ``
+In `wWinMain` function, start application by instantiating `App` derived from `application`.
+
+```cpp
+int WINAPI wWinMain(HINSTANCE, HINSTANCE, LPWSTR, int)
+{
+	init_apartment();
+	Application::Start([](auto&&) {make<App>(); });
+	return 0;
+}
+```
+
+`init_apartment` initializes the thread in the Windows Runtime. `Application::Start` provides the entry point and requests initialization of the application. 
+The lambda expression is passed that make `App` to be invoked in the initialization sequence.
 
 ## Step 6: Building and Running a WinUI 3 app
+Here is the complete code for the program:
+
+```cpp
+#include <Windows.h>
+#undef GetCurrentTime
+#include <winrt/Microsoft.UI.Xaml.h>
+
+using namespace winrt;
+using namespace Microsoft::UI::Xaml;
+
+class App : public ApplicationT<App>
+{
+public:
+	void OnLaunched(LaunchActivatedEventArgs const&)
+	{
+		window = Window();
+		window.Activate();
+	}
+private:
+	Window window = nullptr;
+};
+
+int WINAPI wWinMain(HINSTANCE, HINSTANCE, LPWSTR, int)
+{
+	init_apartment();
+	Application::Start([](auto&&) {make<App>(); });
+	return 0;
+}
+```
+
+Build and run the app. You can see a blank window.
