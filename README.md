@@ -121,3 +121,7 @@ int WINAPI wWinMain(HINSTANCE, HINSTANCE, LPWSTR, int)
 ```
 
 Build and run the app. You can see a blank window.
+
+## Adding WinUI 3 Controls
+
+## Adding WinUI 3 Themes
