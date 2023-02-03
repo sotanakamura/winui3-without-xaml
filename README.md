@@ -122,6 +122,37 @@ int WINAPI wWinMain(HINSTANCE, HINSTANCE, LPWSTR, int)
 
 Build and run the app. You can see a blank window.
 
-## Adding WinUI 3 Controls
+## Step 7: Adding WinUI 3 Controls
+Add stack panel and button.
 
-## Adding WinUI 3 Themes
+```cpp
+...
+#include <winrt/Microsoft.UI.Xaml.Controls.h>
+...
+using namespace Microsoft::UI::Xaml::Controls;
+...
+
+	void OnLaunched(LaunchActivatedEventArgs const&)
+	{
+		window = Window();
+
+		StackPanel stackPanel;
+		stackPanel.HorizontalAlignment(HorizontalAlignment::Center);
+		stackPanel.VerticalAlignment(VerticalAlignment::Center);
+
+		Button button;
+		button.Content(box_value(L"WinUI3 Without XAML!"));
+
+		window.Content(stackPanel);
+		stackPanel.Children().Append(button);
+
+		window.Activate();
+	}
+
+...
+```
+
+`StackPanel` arranges child elements into a single line that can be oriented horizontally or vertically. Horizontal alignment and vertical alignment are set by properties (Accessors and Mutators in C++). `Button` represents a templated button control that interprets a Click user interaction. `Content` can be passed an instance of any runtime class. But you can't directly pass to such a function a scalar value (such as a numeric or text value), nor an array. Instead, a scalar or array value needs to be wrapped inside a reference class object. That wrapping process is known as boxing the value. C++/WinRT provides the `winrt::box_value` function, which takes a scalar or array value, and returns the value boxed into a reference class object. After creating conrtols, connect child elements to the parent controls.
+
+## Step 8: Adding WinUI 3 Themes
+You can add WinUI 3 controls, but it looks UWP controls. You need to add WinUI 3 themes. WinUI 3 themes are written in XAML, so the `App` requires XAML integration. 
