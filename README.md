@@ -53,7 +53,7 @@ using namespace winrt;
 using namespace Microsoft::UI::Xaml;
 ```
 
-`#undef GetCurrentTime` is needed to avoid compile error on duplicated macros. `Microsoft.UI.Xaml.h` header file provides general XAML APIs including `Application` class and `Window` class. APIs provided by `Microsoft.UI.Xaml.h` has `winrt::Microsoft::UI::Xaml` namespace. In general, Windows Runtime APIs have `winrt` namespace, Windows SDK APIs have `Windows` namespace, and Windows APP SDk APIs have `Microsoft` namespace. `using namespace` is useful for simplifying code.
+`#undef GetCurrentTime` is needed to avoid compile error on duplicated macros. `Microsoft.UI.Xaml.h` header file provides general XAML APIs including `Application` class and `Window` class. APIs provided by `Microsoft.UI.Xaml.h` has `winrt::Microsoft::UI::Xaml` namespace. In general, Windows Runtime APIs have `winrt` namespace, Windows SDK APIs have `Windows` namespace, and Windows App SDk APIs have `Microsoft` namespace. `using namespace` is useful for simplifying code.
 
 ## Step 4: Creating an Application and a Window
 `Application` class provides an entry point for the WinUI 3 application. `OnLaunched` method is invoked when the application is launched. Inherit `Application` class and override this method to perform application initialization and to create a new window.
@@ -141,7 +141,7 @@ using namespace Microsoft::UI::Xaml::Controls;
 		stackPanel.VerticalAlignment(VerticalAlignment::Center);
 
 		Button button;
-		button.Content(box_value(L"WinUI3 Without XAML!"));
+		button.Content(box_value(L"WinUI 3 Without XAML!"));
 
 		window.Content(stackPanel);
 		stackPanel.Children().Append(button);
@@ -155,4 +155,120 @@ using namespace Microsoft::UI::Xaml::Controls;
 `StackPanel` arranges child elements into a single line that can be oriented horizontally or vertically. Horizontal alignment and vertical alignment are set by properties (Accessors and Mutators in C++). `Button` represents a templated button control that interprets a Click user interaction. `Content` can be passed an instance of any runtime class. But you can't directly pass to such a function a scalar value (such as a numeric or text value), nor an array. Instead, a scalar or array value needs to be wrapped inside a reference class object. That wrapping process is known as boxing the value. C++/WinRT provides the `winrt::box_value` function, which takes a scalar or array value, and returns the value boxed into a reference class object. After creating conrtols, connect child elements to the parent controls.
 
 ## Step 8: Adding WinUI 3 Themes
-You can add WinUI 3 controls, but it looks UWP controls. You need to add WinUI 3 themes. WinUI 3 themes are written in XAML, so the `App` requires XAML integration. 
+You can add WinUI 3 controls, but it looks UWP controls. You need to add WinUI 3 themes. WinUI 3 themes are written in XAML, so the `App` requires XAML integration. What you need to do is implementing a `IXamlMetadataProvider` interface. This interface implements XAML type resolution and provides the mapping between types used in XAML markup and the corresponding classes implemented in an application or component. The interface is passed as a template parameter.
+
+```cpp
+...
+#include <winrt/Windows.UI.Xaml.Interop.h>
+...
+#include <winrt/Microsoft.UI.Xaml.XamlTypeInfo.h>
+#include <winrt/Microsoft.UI.Xaml.Markup.h>
+
+...
+using namespace Microsoft::UI::Xaml::XamlTypeInfo;
+using namespace Microsoft::UI::Xaml::Markup;
+using namespace Windows::UI::Xaml::Interop;
+
+class App : public ApplicationT<App, IXamlMetadataProvider>
+{
+public:
+	void OnLaunched(LaunchActivatedEventArgs const&)
+	{
+		Resources().MergedDictionaries().Append(XamlControlsResources());
+		...
+	}
+	IXamlType GetXamlType(TypeName const& type)
+	{
+		return provider.GetXamlType(type);
+	}
+	IXamlType GetXamlType(winrt::hstring const& fullname)
+	{
+		return provider.GetXamlType(fullname);
+	}
+	com_array<XmlnsDefinition> GetXmlnsDefinitions()
+	{
+		return provider.GetXmlnsDefinitions();
+	}
+private:
+	...
+	XamlControlsXamlMetaDataProvider provider;
+};
+```
+
+`IXamlMetadataProvider` interface provides XAML type information with following three methods;
+
+* `GetXamlType(TypeName)`
+* `GetXamlType(String)`
+* `GetXmlnsDefinitions()`
+
+Implement these methods by passing arguments to `XamlControlsXamlMetaDataProvider` class. `XamlControlsXamlMetaDataProvider` class provides XAML type information for WinUI 3. Finally, add WinUI 3 theme to the applicarion by appending WinUI 3 XAML resource to `Resources` property. `XamlControlsResources()` returns default styles for the controls in WinUI 3. 
+
+## Step 9: Building and Running a WinUI 3 app with Fluent Design
+Here is the complete code for the program:
+
+```cpp
+#include <Windows.h>
+#undef GetCurrentTime
+#include <winrt/Windows.Foundation.Collections.h>
+#include <winrt/Windows.UI.Xaml.Interop.h>
+#include <winrt/Microsoft.UI.Xaml.Controls.h>
+#include <winrt/Microsoft.UI.Xaml.XamlTypeInfo.h>
+#include <winrt/Microsoft.UI.Xaml.Markup.h>
+
+using namespace winrt;
+using namespace Microsoft::UI::Xaml;
+using namespace Microsoft::UI::Xaml::Controls;
+using namespace Microsoft::UI::Xaml::XamlTypeInfo;
+using namespace Microsoft::UI::Xaml::Markup;
+using namespace Windows::UI::Xaml::Interop;
+
+class App : public ApplicationT<App, IXamlMetadataProvider>
+{
+public:
+	void OnLaunched(LaunchActivatedEventArgs const&)
+	{
+		Resources().MergedDictionaries().Append(XamlControlsResources());
+
+		window = Window();
+
+		StackPanel stackPanel;
+		stackPanel.HorizontalAlignment(HorizontalAlignment::Center);
+		stackPanel.VerticalAlignment(VerticalAlignment::Center);
+
+		Button button;
+		button.Content(box_value(L"WinUI 3 Without XAML!"));
+
+		window.Content(stackPanel);
+		stackPanel.Children().Append(button);
+
+		window.Activate();
+	}
+	IXamlType GetXamlType(TypeName const& type)
+	{
+		return provider.GetXamlType(type);
+	}
+	IXamlType GetXamlType(winrt::hstring const& fullname)
+	{
+		return provider.GetXamlType(fullname);
+	}
+	com_array<XmlnsDefinition> GetXmlnsDefinitions()
+	{
+		return provider.GetXmlnsDefinitions();
+	}
+private:
+	Window window{ nullptr };
+	XamlControlsXamlMetaDataProvider provider;
+};
+
+int WINAPI wWinMain(HINSTANCE, HINSTANCE, LPWSTR, int)
+{
+	init_apartment();
+	Application::Start([](auto&&) {make<App>(); });
+	return 0;
+}
+```
+
+Build and run the app. You can see a beautiful WinUI 3 button.
+
+## Reference
+This method is an unsupported scenario; it is strongly recommended to use XAML when creating Winui 3 apps. Please refer to the official documents to get started with [Windows App SDK](https://learn.microsoft.com/ja-jp/windows/apps/winui/winui3/create-your-first-winui3-app), [C++/WinRT](https://learn.microsoft.com/ja-jp/windows/uwp/cpp-and-winrt-apis/), and [XAML](https://learn.microsoft.com/ja-jp/windows/uwp/xaml-platform/).
