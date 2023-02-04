@@ -38,7 +38,7 @@ public:
 	{
 		return provider.GetXamlType(type);
 	}
-	IXamlType GetXamlType(winrt::hstring const& fullname)
+	IXamlType GetXamlType(hstring const& fullname)
 	{
 		return provider.GetXamlType(fullname);
 	}
