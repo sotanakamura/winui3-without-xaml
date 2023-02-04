@@ -272,4 +272,4 @@ int WINAPI wWinMain(HINSTANCE, HINSTANCE, LPWSTR, int)
 Build and run the app. You can see a beautiful WinUI 3 button.
 
 ## Reference
-This method is an unsupported scenario; it is strongly recommended to use XAML when creating Winui 3 apps. Please refer to the official documents to get started with [Windows App SDK](https://learn.microsoft.com/ja-jp/windows/apps/winui/winui3/create-your-first-winui3-app), [C++/WinRT](https://learn.microsoft.com/ja-jp/windows/uwp/cpp-and-winrt-apis/), and [XAML](https://learn.microsoft.com/ja-jp/windows/uwp/xaml-platform/).
+This method is an unsupported scenario; it is strongly recommended to use XAML when creating Winui 3 apps. Please refer to the official documents to get started with [Windows App SDK](https://learn.microsoft.com/ja-jp/windows/apps/winui/winui3/create-your-first-winui3-app). If you are not familiar with C++/WinRT and XAML, I highly recommend you to learn [C++/WinRT](https://learn.microsoft.com/ja-jp/windows/uwp/cpp-and-winrt-apis/) and [XAML](https://learn.microsoft.com/ja-jp/windows/uwp/xaml-platform/) before developing.
