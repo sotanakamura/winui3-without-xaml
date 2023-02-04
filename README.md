@@ -68,7 +68,7 @@ public:
 		window.Activate();
 	}
 private:
-	Window window = nullptr;
+	Window window{ nullptr };
 };
 ```
 
@@ -109,7 +109,7 @@ public:
 		window.Activate();
 	}
 private:
-	Window window = nullptr;
+	Window window{ nullptr };
 };
 
 int WINAPI wWinMain(HINSTANCE, HINSTANCE, LPWSTR, int)
@@ -182,7 +182,7 @@ public:
 	{
 		return provider.GetXamlType(type);
 	}
-	IXamlType GetXamlType(winrt::hstring const& fullname)
+	IXamlType GetXamlType(hstring const& fullname)
 	{
 		return provider.GetXamlType(fullname);
 	}
@@ -248,7 +248,7 @@ public:
 	{
 		return provider.GetXamlType(type);
 	}
-	IXamlType GetXamlType(winrt::hstring const& fullname)
+	IXamlType GetXamlType(hstring const& fullname)
 	{
 		return provider.GetXamlType(fullname);
 	}
