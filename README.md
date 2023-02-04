@@ -127,6 +127,7 @@ Add stack panel and button.
 
 ```cpp
 ...
+#include <winrt/Windows.Foundation.Collections.h>
 #include <winrt/Microsoft.UI.Xaml.Controls.h>
 ...
 using namespace Microsoft::UI::Xaml::Controls;
