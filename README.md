@@ -2,7 +2,7 @@
 WinUI 3 is a modern UI framework for Windows apps. WinUI 3 can be used with C++/WinRT, a C++17 language projection that provides access to the Windows Runtime (WinRT) APIs. Usually, XAML is used to define the UI. Therefore, XAML and C++ are combined to create applications. However, there are those who want to create simple applications in C++ without XAML. This repository provides a step-by-step guide to creating WinUI3 apps in C++ without XAML.
 
 ## Caution
-Creating WinUI 3 apps without XAML is an unsupported scenario; it is strongly recommended to use XAML when creating Winui 3 apps. If you still want to create a winui 3 app without XAML, proceed to the next section.
+Creating WinUI 3 apps without XAML is an unsupported scenario and some features are limited; it is strongly recommended to use XAML when creating Winui 3 apps. If you still want to create a winui 3 app without XAML, proceed to the next section.
 
 ## Step 1: Creating a Project
 Normally, when creating a WinUI 3 application, start with a WinUI 3 project template. Here, we start with an empty project.
