@@ -27,7 +27,7 @@ public:
 		stackPanel.VerticalAlignment(VerticalAlignment::Center);
 
 		Button button;
-		button.Content(box_value(L"WinUI3 Without XAML!"));
+		button.Content(box_value(L"WinUI 3 Without XAML!"));
 
 		window.Content(stackPanel);
 		stackPanel.Children().Append(button);
@@ -47,7 +47,7 @@ public:
 		return provider.GetXmlnsDefinitions();
 	}
 private:
-	Window window = nullptr;
+	Window window{ nullptr };
 	XamlControlsXamlMetaDataProvider provider;
 };
 
