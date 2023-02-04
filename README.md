@@ -278,4 +278,4 @@ This method is an unsupported scenario; it is strongly recommended to use XAML w
 * [C++/WinRT](https://learn.microsoft.com/ja-jp/windows/uwp/cpp-and-winrt-apis/): C++/WinRT is an entirely standard modern C++17 language projection for Windows Runtime (WinRT) APIs, implemented as a header-file-based library, and designed to provide you with first-class access to the modern Windows API. 
 * [XAML](https://learn.microsoft.com/ja-jp/windows/uwp/xaml-platform/): Extensible Application Markup Language (XAML) is a declarative language. Specifically, XAML can initialize objects and set properties of objects using a language structure that shows hierarchical relationships between multiple objects and a backing type convention that supports extension of types. You can create visible UI elements in the declarative XAML markup.
 
-Some text in this document is cited from Microsoft documentation. https://learn.microsoft.com
+Some text in this document is cited from Microsoft documentation. [https://learn.microsoft.com](https://learn.microsoft.com)
