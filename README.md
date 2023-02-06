@@ -4,6 +4,11 @@ WinUI 3 is a modern UI framework for Windows apps. WinUI 3 can be used with C++/
 ## Caution
 Creating WinUI 3 apps without XAML is an unsupported scenario and some features are limited; it is strongly recommended to use XAML when creating Winui 3 apps. If you still want to create a winui 3 app without XAML, proceed to the next section.
 
+## Sample
+You can download a sample zip file from [winui3-without-xaml repository](https://github.com/sotanakamura/winui3-without-xaml/).
+
+[master.zip](https://github.com/sotanakamura/winui3-without-xaml/archive/refs/heads/master.zip).
+
 ## Step 1: Creating a Project
 Normally, when creating a WinUI 3 application, start with a WinUI 3 project template. Here, we start with an empty project.
 
