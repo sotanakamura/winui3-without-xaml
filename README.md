@@ -1,4 +1,4 @@
-# Step-by-step Guide: WinUI 3 in C++ Without XAML
+# WinUI 3 in C++ Without XAML
 WinUI 3 is a modern UI framework for Windows apps. WinUI 3 can be used with C++/WinRT, a C++17 language projection that provides access to the Windows Runtime (WinRT) APIs. Usually, XAML is used to define the UI. Therefore, XAML and C++ are combined to create applications. However, there are those who want to create simple applications in C++ without XAML. This repository provides a step-by-step guide to creating WinUI3 apps in C++ without XAML.
 
 ## Caution
