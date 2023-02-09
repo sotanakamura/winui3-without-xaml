@@ -279,7 +279,7 @@ int WINAPI wWinMain(HINSTANCE, HINSTANCE, LPWSTR, int)
 Build and run the app. You can see a beautiful WinUI 3 button.
 
 ## Step 10: Things more interesting
-Now you can build WinUI 3 app in C++ without XAML. When you add WinUI 3 controls, you need to read [C++/WinRT](https://learn.microsoft.com/ja-jp/windows/uwp/cpp-and-winrt-apis/) for learning essential techniques and [WinUI 3 API reference](https://learn.microsoft.com/en-us/uwp/api/) for dealing with WinUI 3 controls. It is hard. Here, I will show you some examples to use WinUI 3 controls.
+Now you can build WinUI 3 app in C++ without XAML. When you add WinUI 3 controls, you need to read [C++/WinRT](https://learn.microsoft.com/ja-jp/windows/uwp/cpp-and-winrt-apis/) for learning essential techniques and [WinUI 3 API reference](https://learn.microsoft.com/en-us/uwp/api/) for dealing with WinUI 3 controls. It is hard. Here, I will show you some examples to help you to use WinUI 3 controls.
 
 ```cpp
 	void OnLaunched(LaunchActivatedEventArgs const&)
