@@ -278,6 +278,47 @@ int WINAPI wWinMain(HINSTANCE, HINSTANCE, LPWSTR, int)
 
 Build and run the app. You can see a beautiful WinUI 3 button.
 
+## Step 10: Things more interesting
+Now you can build WinUI 3 app in C++ without XAML. When you add WinUI 3 controls, you need to read [C++/WinRT](https://learn.microsoft.com/ja-jp/windows/uwp/cpp-and-winrt-apis/) for learning essential techniques and [WinUI 3 API reference](https://learn.microsoft.com/en-us/uwp/api/) for dealing with WinUI 3 controls. It is hard. Here, I will show you some examples to use WinUI 3 controls.
+
+```cpp
+	void OnLaunched(LaunchActivatedEventArgs const&)
+	{
+		Resources().MergedDictionaries().Append(XamlControlsResources());
+
+		window = Window();
+
+		StackPanel stackPanel;
+		stackPanel.HorizontalAlignment(HorizontalAlignment::Center);
+		stackPanel.VerticalAlignment(VerticalAlignment::Center);
+
+		TextBlock title;
+		title.Style(Application::Current().Resources().Lookup(box_value(L"TitleTextBlockStyle")).as<Style>());
+		title.Text(L"WinUI 3 in C++ Without XAML!");
+		title.HorizontalAlignment(HorizontalAlignment::Center);
+
+		HyperlinkButton project;
+		project.Content(box_value(L"Github Project Repository"));
+		project.NavigateUri(Uri(L"https://github.com/sotanakamura/winui3-without-xaml"));
+		project.HorizontalAlignment(HorizontalAlignment::Center);
+
+		Button button;
+		button.Content(box_value(L"Click"));
+		button.Click([&](IInspectable const &sender, RoutedEventArgs) { sender.as<Button>().Content(box_value(L"Thank You!")); });
+		button.HorizontalAlignment(HorizontalAlignment::Center);
+		button.Margin(ThicknessHelper::FromUniformLength(20));
+
+		window.Content(stackPanel);
+		stackPanel.Children().Append(title);
+		stackPanel.Children().Append(project);
+		stackPanel.Children().Append(button);
+
+		window.Activate();
+	}
+```
+
+
+
 ## Reference
 This method is an unsupported scenario; it is strongly recommended to use XAML when creating Winui 3 apps. Please refer to the official documents to get started with [Windows App SDK](https://learn.microsoft.com/en-us/windows/apps/windows-app-sdk/). If you are not familiar with [C++/WinRT](https://learn.microsoft.com/ja-jp/windows/uwp/cpp-and-winrt-apis/) and [XAML](https://learn.microsoft.com/ja-jp/windows/uwp/xaml-platform/), I highly recommend you to learn them before developing.
 
