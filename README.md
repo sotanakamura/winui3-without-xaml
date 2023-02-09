@@ -278,43 +278,81 @@ int WINAPI wWinMain(HINSTANCE, HINSTANCE, LPWSTR, int)
 
 Build and run the app. You can see a beautiful WinUI 3 button.
 
-## Step 10: Things more interesting
+## Step 10: Things More Interesting
 Now you can build WinUI 3 app in C++ without XAML. Here, I will show you some examples to help you to use WinUI 3 controls.
 
 ```cpp
-	void OnLaunched(LaunchActivatedEventArgs const&)
-	{
-		Resources().MergedDictionaries().Append(XamlControlsResources());
+void OnLaunched(LaunchActivatedEventArgs const&)
+{
+	Resources().MergedDictionaries().Append(XamlControlsResources());
 
-		window = Window();
+	window = Window();
 
-		StackPanel stackPanel;
-		stackPanel.HorizontalAlignment(HorizontalAlignment::Center);
-		stackPanel.VerticalAlignment(VerticalAlignment::Center);
+	StackPanel stackPanel;
+	stackPanel.HorizontalAlignment(HorizontalAlignment::Center);
+	stackPanel.VerticalAlignment(VerticalAlignment::Center);
 
-		TextBlock title;
-		title.Style(Application::Current().Resources().Lookup(box_value(L"TitleTextBlockStyle")).as<Style>());
-		title.Text(L"WinUI 3 in C++ Without XAML!");
-		title.HorizontalAlignment(HorizontalAlignment::Center);
+	TextBlock title;
+	title.Style(Application::Current().Resources().Lookup(box_value(L"TitleTextBlockStyle")).as<Style>());
+	title.Text(L"WinUI 3 in C++ Without XAML!");
+	title.HorizontalAlignment(HorizontalAlignment::Center);
 
-		HyperlinkButton project;
-		project.Content(box_value(L"Github Project Repository"));
-		project.NavigateUri(Uri(L"https://github.com/sotanakamura/winui3-without-xaml"));
-		project.HorizontalAlignment(HorizontalAlignment::Center);
+	HyperlinkButton project;
+	project.Content(box_value(L"Github Project Repository"));
+	project.NavigateUri(Uri(L"https://github.com/sotanakamura/winui3-without-xaml"));
+	project.HorizontalAlignment(HorizontalAlignment::Center);
 
-		Button button;
-		button.Content(box_value(L"Click"));
-		button.Click([&](IInspectable const &sender, RoutedEventArgs) { sender.as<Button>().Content(box_value(L"Thank You!")); });
-		button.HorizontalAlignment(HorizontalAlignment::Center);
-		button.Margin(ThicknessHelper::FromUniformLength(20));
+	Button button;
+	button.Content(box_value(L"Click"));
+	button.Click([&](IInspectable const &sender, RoutedEventArgs) { sender.as<Button>().Content(box_value(L"Thank You!")); });
+	button.HorizontalAlignment(HorizontalAlignment::Center);
+	button.Margin(ThicknessHelper::FromUniformLength(20));
 
-		window.Content(stackPanel);
-		stackPanel.Children().Append(title);
-		stackPanel.Children().Append(project);
-		stackPanel.Children().Append(button);
+	window.Content(stackPanel);
+	stackPanel.Children().Append(title);
+	stackPanel.Children().Append(project);
+	stackPanel.Children().Append(button);
 
-		window.Activate();
-	}
+	window.Activate();
+}
+```
+
+## Step 11 (Optional): Add Precompiled Header Files
+C++/WinRT is header-only library and takes a lot of time to compile. You can reduce the time by precompiling. Any stable header files, for example Standard Library headers and C++/WinRT headers, can be precompiled cause it is not often changed.
+
+1. Add pch.h and pch.cpp files with following code.
+2. Right-click the project on Solution Explorer of Visual Studio and click "Properties".
+3. Set `Use` in "C/C++->Precompiled Headers->Precompiled Header".
+3. Set `pch.h` in "C/C++->Precompiled Headers->Precompiled Header File".
+4. Right-click pch.cpp and click "Properties".
+5. Set `Create` in "C/C++->Precompiled Headers->Precompiled Header".
+6. Move including header files to `pch.h` and include `pch.h`
+
+```cpp
+//pch.h
+
+#include <Windows.h>
+#undef GetCurrentTime
+#include <winrt/Windows.Foundation.Collections.h>
+#include <winrt/Windows.UI.Xaml.Interop.h>
+#include <winrt/Microsoft.UI.Xaml.Controls.h>
+#include <winrt/Microsoft.UI.Xaml.Controls.Primitives.h>
+#include <winrt/Microsoft.UI.Xaml.XamlTypeInfo.h>
+#include <winrt/Microsoft.UI.Xaml.Markup.h>
+```
+
+```cpp
+//pch.cpp
+
+#include "pch.h"
+```
+
+```cpp
+//main.cpp
+
+#include "pch.h"
+
+using naespace ...
 ```
 
 ## Reference
