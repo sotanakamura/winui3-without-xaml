@@ -279,7 +279,7 @@ int WINAPI wWinMain(HINSTANCE, HINSTANCE, LPWSTR, int)
 Build and run the app. You can see a beautiful WinUI 3 button.
 
 ## Step 10: Things more interesting
-Now you can build WinUI 3 app in C++ without XAML. When you add WinUI 3 controls, you need to read [C++/WinRT](https://learn.microsoft.com/ja-jp/windows/uwp/cpp-and-winrt-apis/) for learning essential techniques and [WinUI 3 API reference](https://learn.microsoft.com/en-us/uwp/api/) for dealing with WinUI 3 controls. It is hard. Here, I will show you some examples to help you to use WinUI 3 controls.
+Now you can build WinUI 3 app in C++ without XAML. Here, I will show you some examples to help you to use WinUI 3 controls.
 
 ```cpp
 	void OnLaunched(LaunchActivatedEventArgs const&)
@@ -317,13 +317,18 @@ Now you can build WinUI 3 app in C++ without XAML. When you add WinUI 3 controls
 	}
 ```
 
-
-
 ## Reference
-This method is an unsupported scenario; it is strongly recommended to use XAML when creating Winui 3 apps. Please refer to the official documents to get started with [Windows App SDK](https://learn.microsoft.com/en-us/windows/apps/windows-app-sdk/). If you are not familiar with [C++/WinRT](https://learn.microsoft.com/ja-jp/windows/uwp/cpp-and-winrt-apis/) and [XAML](https://learn.microsoft.com/ja-jp/windows/uwp/xaml-platform/), I highly recommend you to learn them before developing.
+This method is an unsupported scenario; it is strongly recommended to use XAML when creating Winui 3 apps. Please refer to the official documents to get started with [Windows App SDK](https://learn.microsoft.com/en-us/windows/apps/windows-app-sdk/). If you are not familiar with [C++/WinRT](https://learn.microsoft.com/ja-jp/windows/uwp/cpp-and-winrt-apis/) and [XAML](https://learn.microsoft.com/ja-jp/windows/uwp/xaml-platform/), I highly recommend you to learn them before developing. C++ is not primary language for WinUI 3 apps, so this senario is not documented well. You need to refer to API reference many times. Windows App SDK APIs are mainly for WinUI 3. You can access modern Windows features through Windows SDK APIs.
+
+### Documents
 
 * [Windows App SDK](https://learn.microsoft.com/en-us/windows/apps/windows-app-sdk/): The Windows UI Library (WinUI) 3 is the latest and recommended user interface (UI) framework for Windows desktop apps. By incorporating the Fluent Design System into all experiences, controls, and styles, WinUI provides consistent, intuitive, and accessible experiences using the latest UI patterns. WinUI 3 is available as part of the Windows App SDK.
 * [C++/WinRT](https://learn.microsoft.com/ja-jp/windows/uwp/cpp-and-winrt-apis/): C++/WinRT is an entirely standard modern C++17 language projection for Windows Runtime (WinRT) APIs, implemented as a header-file-based library, and designed to provide you with first-class access to the modern Windows API. 
 * [XAML](https://learn.microsoft.com/ja-jp/windows/uwp/xaml-platform/): Extensible Application Markup Language (XAML) is a declarative language. Specifically, XAML can initialize objects and set properties of objects using a language structure that shows hierarchical relationships between multiple objects and a backing type convention that supports extension of types. You can create visible UI elements in the declarative XAML markup.
+
+### API reference
+
+* [Windows App SDK APIs Reference](https://learn.microsoft.com/en-us/windows/windows-app-sdk/api/winrt/): APIs for WinUI 3.
+* [Windows SDK APIs Reference](https://learn.microsoft.com/en-us/uwp/api/): APIs for modern Windows features.
 
 Some text in this document is cited from Microsoft documentation. [https://learn.microsoft.com](https://learn.microsoft.com)
