@@ -8,6 +8,14 @@ using namespace Microsoft::UI::Xaml::Markup;
 using namespace Windows::UI::Xaml::Interop;
 using namespace Windows::Foundation;
 
+class MainWindow : public WindowT<MainWindow>
+{
+public:
+	MainWindow()
+	{
+	}
+};
+
 class App : public ApplicationT<App, IXamlMetadataProvider>
 {
 public:
@@ -15,33 +23,7 @@ public:
 	{
 		Resources().MergedDictionaries().Append(XamlControlsResources());
 
-		window = Window();
-
-		StackPanel stackPanel;
-		stackPanel.HorizontalAlignment(HorizontalAlignment::Center);
-		stackPanel.VerticalAlignment(VerticalAlignment::Center);
-
-		TextBlock title;
-		title.Style(Application::Current().Resources().Lookup(box_value(L"TitleTextBlockStyle")).as<Style>());
-		title.Text(L"WinUI 3 in C++ Without XAML!");
-		title.HorizontalAlignment(HorizontalAlignment::Center);
-
-		HyperlinkButton project;
-		project.Content(box_value(L"Github Project Repository"));
-		project.NavigateUri(Uri(L"https://github.com/sotanakamura/winui3-without-xaml"));
-		project.HorizontalAlignment(HorizontalAlignment::Center);
-
-		Button button;
-		button.Content(box_value(L"Click"));
-		button.Click([&](IInspectable const &sender, RoutedEventArgs) { sender.as<Button>().Content(box_value(L"Thank You!")); });
-		button.HorizontalAlignment(HorizontalAlignment::Center);
-		button.Margin(ThicknessHelper::FromUniformLength(20));
-
-		window.Content(stackPanel);
-		stackPanel.Children().Append(title);
-		stackPanel.Children().Append(project);
-		stackPanel.Children().Append(button);
-
+		window = make<MainWindow>();
 		window.Activate();
 	}
 	IXamlType GetXamlType(TypeName const& type)
