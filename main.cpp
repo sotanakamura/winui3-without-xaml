@@ -5,10 +5,11 @@ using namespace Microsoft::UI::Xaml;
 using namespace Microsoft::UI::Xaml::Controls;
 using namespace Microsoft::UI::Xaml::XamlTypeInfo;
 using namespace Microsoft::UI::Xaml::Markup;
+using namespace Microsoft::UI::Xaml::Media;
 using namespace Windows::UI::Xaml::Interop;
 using namespace Windows::Foundation;
 
-class MainWindow : public WindowT<MainWindow>
+class MainWindow : public Window
 {
 public:
 	MainWindow()
@@ -40,36 +41,45 @@ public:
 	}
 };
 
-class App : public ApplicationT<App, IXamlMetadataProvider>
+class WinUIApplication
 {
+	struct XamlApplication : public ApplicationT<XamlApplication, IXamlMetadataProvider>
+	{
+		void OnLaunched(LaunchActivatedEventArgs const&)
+		{
+			Resources().MergedDictionaries().Append(XamlControlsResources());
+		}
+		IXamlType GetXamlType(TypeName const& type)
+		{
+			return provider.GetXamlType(type);
+		}
+		IXamlType GetXamlType(hstring const& fullname)
+		{
+			return provider.GetXamlType(fullname);
+		}
+		com_array<XmlnsDefinition> GetXmlnsDefinitions()
+		{
+			return provider.GetXmlnsDefinitions();
+		}
+	private:
+		XamlControlsXamlMetaDataProvider provider;
+	};
+	Application app{ nullptr };
 public:
-	void OnLaunched(LaunchActivatedEventArgs const&)
+	WinUIApplication()
 	{
-		Resources().MergedDictionaries().Append(XamlControlsResources());
-
-		window = make<MainWindow>();
-		window.Activate();
+		app = make<XamlApplication>();
 	}
-	IXamlType GetXamlType(TypeName const& type)
-	{
-		return provider.GetXamlType(type);
-	}
-	IXamlType GetXamlType(hstring const& fullname)
-	{
-		return provider.GetXamlType(fullname);
-	}
-	com_array<XmlnsDefinition> GetXmlnsDefinitions()
-	{
-		return provider.GetXmlnsDefinitions();
-	}
-private:
-	Window window{ nullptr };
-	XamlControlsXamlMetaDataProvider provider;
 };
 
-int WINAPI wWinMain(HINSTANCE, HINSTANCE, LPWSTR, int)
+int main()
 {
 	init_apartment();
-	Application::Start([](auto&&) {make<App>(); });
+	Application::Start([](auto) {
+		WinUIApplication app;
+		Window window;
+		window.SystemBackdrop(MicaBackdrop());
+		window.Activate();
+	});
 	return 0;
 }
