@@ -13,7 +13,7 @@ You can download a sample zip file from [winui3-without-xaml repository](https:/
 [master.zip](https://github.com/sotanakamura/winui3-without-xaml/archive/refs/heads/master.zip).
 
 ## Issues
-Issues is closed. When you have a problem, please comment in [windows-ui-xaml Discussions](https://github.com/microsoft/microsoft-ui-xaml/discussions/8151) to show needs of WinUI 3 without XAML to WinUI 3 team.
+~~Issues is closed. When you have a problem, please comment in [windows-ui-xaml Discussions](https://github.com/microsoft/microsoft-ui-xaml/discussions/8151) to show needs of WinUI 3 without XAML to WinUI 3 team.~~
 
 ## Step 1: Creating a Project
 Normally, when creating a WinUI 3 application, start with a WinUI 3 project template. Here, we start with an empty project.
